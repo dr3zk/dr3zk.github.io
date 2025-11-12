@@ -1,0 +1,897 @@
+@font-face {
+  font-family: "gohu";
+  src: url("/files/font/gohu.woff2") format("woff2"),
+    url("/files/font/gohu.woff") format("woff"),
+    url("/files/font/gohu.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+
+/* ===== RESET E CONFIGURAÇÕES GERAIS ===== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 16px;
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: "gohu", monospace !important;
+  background-color: #000000;
+  color: #ffffff;
+  line-height: 1.7;
+  max-width: 1250px;
+  margin: 0 auto;
+  padding: 2rem;
+  min-height: 100vh;
+}
+
+.back-home {
+  display: inline-block;
+  padding: 0.2rem 1rem;
+  font-family: "gohu", monospace;
+  font-size: 1rem;
+  color: #ffffffcc;
+  background-color: #222222;
+  border: 1px solid #fff;
+  text-decoration: none;
+  transition: 0.2s;
+}
+.page-header {
+ text-align: center;
+}
+
+.page-header p {
+ text-align: center;
+}
+
+/* ===== JANELA TERMINAL MODERNA ===== */
+.terminal-window {
+  background-color: #0a0a0a;
+  border: 1px solid #333;
+  margin: 1rem auto;
+  max-width: 1250px;
+  box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.1),
+    0 8px 32px rgba(0, 0, 0, 0.952);
+  position: relative;
+  overflow: hidden;
+}
+
+/* Barra de título minimalista */
+.terminal-header {
+  background: linear-gradient(135deg, #1a1a1a 0%, #0d0d0d 100%);
+  border-bottom: 1px solid #262626;
+  padding: 0.8rem 1.2rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: relative;
+}
+
+/* Título centralizado */
+.terminal-title {
+  color: #fff;
+  font-size: 0.85rem;
+  font-weight: 500;
+  text-align: center;
+  flex-grow: 1;
+  letter-spacing: 0.5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+/* Botões modernos */
+.terminal-buttons {
+  display: flex;
+  gap: 6px;
+}
+
+.terminal-button {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  position: relative;
+}
+
+.terminal-button.close {
+  background: #ff5f57;
+  box-shadow: 0 1px 2px rgba(255, 95, 87, 0.3);
+}
+
+.terminal-button.minimize {
+  background: #ffbd2e;
+  box-shadow: 0 1px 2px rgba(255, 189, 46, 0.3);
+}
+
+.terminal-button.maximize {
+  background: #28c940;
+  box-shadow: 0 1px 2px rgba(40, 201, 64, 0.3);
+}
+
+.terminal-button:hover {
+  transform: scale(1.1);
+  filter: brightness(1.2);
+}
+
+.terminal-button:active {
+  transform: scale(0.95);
+}
+
+.flag-button {
+  background: #0000;
+  padding: 4px 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-size: 0.9rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 32px;
+  height: 24px;
+  border: none;
+}
+
+.flag-button:hover {
+  background: rgba(255, 255, 255, 0);
+  border-color: rgba(46, 46, 46, 0.3);
+  transform: translateY(-1px);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+.flag-button:active {
+  transform: translateY(0);
+  background: rgba(255, 255, 255, 0.2);
+}
+
+/* Conteúdo */
+.terminal-content {
+  padding: 2rem;
+  background: #000;
+  min-height: 400px;
+}
+
+/* Efeitos de brilho sutil */
+.terminal-window::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.1) 50%,
+    transparent 100%
+  );
+}
+
+/* Versão mobile */
+@media (max-width: 768px) {
+  .terminal-window {
+    margin: 1rem;
+  }
+
+  .terminal-content {
+    padding: 1.5rem;
+  }
+
+  .terminal-header {
+    padding: 0.5rem 0.5rem;
+  }
+
+  .terminal-title {
+    font-size: 0.5rem;
+    gap: 6px;
+  }
+
+  .terminal-button {
+    width: 10px;
+    height: 10px;
+  }
+  .flag-button {
+    padding: 3px 6px;
+    min-width: 28px;
+    height: 20px;
+    font-size: 0.8rem;
+  }
+}
+
+/* Scrollbar moderna */
+.terminal-content::-webkit-scrollbar {
+  width: 8px;
+}
+
+.terminal-content::-webkit-scrollbar-track {
+  background: #1a1a1a;
+  border-radius: 4px;
+}
+
+.terminal-content::-webkit-scrollbar-thumb {
+  background: linear-gradient(135deg, #333 0%, #444 100%);
+  border-radius: 4px;
+}
+
+.terminal-content::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(135deg, #444 0%, #555 100%);
+}
+
+/* Efeito de foco */
+.terminal-window:focus-within {
+  box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.15),
+    0 12px 40px rgba(0, 0, 0, 0.9);
+}
+
+.terminal-window:focus-within .terminal-address {
+  background: linear-gradient(135deg, #ffd700 0%, #d4af37 100%);
+  box-shadow: 0 2px 12px rgba(212, 175, 55, 0.4);
+}
+
+/* ===== TIPOGRAFIA ===== */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-weight: 600;
+  margin: 2rem 0 1rem 0;
+  line-height: 1.3;
+}
+
+h1 {
+  font-size: 2.5rem;
+  text-align: center;
+  padding-bottom: 1rem;
+  margin: 3rem 0 2rem 0;
+}
+
+h2 {
+  font-size: 2rem;
+  padding-top: 1rem;
+  margin-top: 3rem;
+}
+
+h3 {
+  font-size: 1.75rem;
+  color: #ffffff;
+}
+
+h4 {
+  font-size: 1.5rem;
+  color: #eeeeee;
+}
+
+h5 {
+  font-size: 1.25rem;
+  color: #dddddd;
+}
+
+h6 {
+  font-size: 1.1rem;
+  color: #cccccc;
+}
+
+/* ===== PARÁGRAFOS E TEXTOS ===== */
+p {
+  margin: 1rem 0;
+  font-size: 1.05rem;
+  text-align: left;
+}
+
+strong,
+b {
+  font-weight: 700;
+  color: #ffffff;
+}
+
+em,
+i {
+  font-style: italic;
+  color: #dddddd;
+}
+
+/* ===== LINKS ===== */
+a {
+  color: #ffffff;
+  text-decoration: none;
+  border-bottom: 1px dashed #777;
+  transition: all 0.3s ease;
+}
+
+a:hover {
+  background-color: #ffffff;
+  color: #000000;
+  border-bottom: 1px solid #ffffff;
+}
+
+/* ===== LISTAS ===== */
+ul,
+ol {
+  margin: 1.5rem 0;
+  padding-left: 2.5rem;
+}
+
+li {
+  margin: 0.5rem 0;
+  padding-left: 0.5rem;
+}
+
+ul li::marker {
+  color: #ffffff;
+  content: "■ ";
+}
+
+ol {
+  list-style-type: decimal;
+}
+
+ol li::marker {
+  color: #ffffff;
+  font-weight: bold;
+}
+
+/* Classes para marcadores coloridos */
+.bullet-red::marker {
+  color: #ff2b2b;
+}
+.bullet-yellow::marker {
+  color: #ffd43b;
+}
+.bullet-blue::marker {
+  color: #2baaff;
+}
+.bullet-orange::marker {
+  color: #ff993b;
+}
+
+/* ===== BLOCOS DE CÓDIGO ===== */
+pre {
+  background-color: #000000;
+  border: 1px solid #333;
+  margin: 1.5rem 0;
+  overflow-x: auto;
+  font-size: 0.95rem;
+  position: relative;
+}
+
+code {
+  background-color: #111111;
+  padding: 0.2rem 0.4rem;
+  font-size: 0.9rem;
+  border: 1px solid #222;
+}
+
+pre code {
+  background-color: transparent;
+  padding: 0;
+  border: none;
+  font-size: 0.95rem;
+}
+
+/* ===== CODE TITLE ESTILO HACKER ===== */
+.code-title {
+  display: block;
+  background-color: #111111;
+  color: #ff993b;
+  font-family: inherit;
+  font-size: 0.85rem;
+  font-weight: 600;
+  padding: 0.5rem 1rem;
+  margin: 1.5rem 0 0 0;
+  border: 1px solid #333;
+  border-bottom: none;
+  position: relative;
+  letter-spacing: 0.5px;
+}
+
+.code-title::before {
+  content: "⌙ ";
+  color: #ffd43b;
+  font-weight: bold;
+}
+
+.code-title::after {
+  content: "";
+  position: absolute;
+  bottom: -1px;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background-color: #333;
+}
+
+/* Quando code-title vem antes de um pre */
+.code-title + pre {
+  margin-top: 0;
+  border-top: none;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+}
+
+/* Versão para arquivos */
+.code-title[data-filename]::before {
+  content: "📁 ";
+}
+
+.code-title[data-language]::after {
+  content: " [" attr(data-language) "]";
+  color: #777;
+  font-size: 0.75rem;
+  float: right;
+  font-weight: normal;
+}
+.ascii {
+  font-family: "gohu", monospace;
+}
+
+/* ===== TABELAS ===== */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1.5rem 0;
+  background-color: #000000;
+  overflow-x: auto;
+  display: block;
+}
+
+th {
+  background-color: #111111;
+  color: #ffffff;
+  font-weight: 600;
+  padding: 1rem;
+  border: 1px solid #333;
+  text-align: left;
+}
+
+td {
+  padding: 0.8rem 1rem;
+  border: 1px solid #333;
+  vertical-align: top;
+}
+
+/* Linhas alternadas */
+tbody tr:nth-child(odd) {
+  background-color: #111111;
+}
+
+tbody tr:nth-child(even) {
+  background-color: #000000;
+}
+
+/* ===== CITAÇÕES ===== */
+blockquote {
+  border-left: 3px solid #ffffff;
+  padding: 1rem 1.5rem;
+  margin: 2rem 0;
+  background-color: #111111;
+  font-style: italic;
+  color: #cccccc;
+}
+
+/* Versões coloridas para blockquotes */
+blockquote.highlight-red {
+  border-left-color: #ff2b2b;
+}
+blockquote.highlight-yellow {
+  border-left-color: #ffd43b;
+}
+blockquote.highlight-blue {
+  border-left-color: #2baaff;
+}
+blockquote.highlight-orange {
+  border-left-color: #ff993b;
+}
+
+/* ===== IMAGENS ===== */
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+  margin: 5px auto;
+}
+
+/* Versão sem borda para certos casos */
+img.no-border {
+  border: none;
+}
+
+/* Imagens pequenas não esticam */
+img:not([width]):not([style*="width"]) {
+  max-width: min(100%, 800px);
+}
+
+/* Imagens com largura definida mantém proporção */
+img[width] {
+  width: auto;
+  max-width: 100%;
+}
+
+/* Versão mobile */
+@media (max-width: 768px) {
+  img {
+    margin: 1rem auto;
+    border-width: 1px;
+  }
+}
+
+/* ===== ELEMENTOS INTERATIVOS ===== */
+details {
+  margin: 1rem 0;
+  border: 1px solid #333;
+  padding: 1rem;
+}
+
+summary {
+  font-weight: 600;
+  cursor: pointer;
+  color: #ffffff;
+}
+
+details[open] {
+  background-color: #111111;
+}
+
+/* ===== INFO BOX ===== */
+.info-box {
+  background-color: #000000;
+  border: 1px solid #2baaff;
+  border-left: 4px solid #2baaff;
+  padding: 1.25rem;
+  margin: 1.5rem 0;
+  position: relative;
+  font-size: 0.95rem;
+}
+
+.info-box::before {
+  content: "[INFO]";
+  display: block;
+  font-weight: bold;
+  color: #2baaff;
+  font-size: 0.8rem;
+  margin-bottom: 0.5rem;
+  letter-spacing: 1px;
+}
+
+.info-box p:last-child {
+  margin-bottom: 0;
+}
+
+/* ===== WARNING BOX ===== */
+.warning-box {
+  background-color: #000000;
+  border: 1px solid #ff1d1d;
+  border-left: 4px solid #ff1d1d;
+  padding: 1.25rem;
+  margin: 1.5rem 0;
+  position: relative;
+  font-size: 0.95rem;
+}
+
+.warning-box::before {
+  content: "[ALERTA]";
+  display: block;
+  font-weight: bold;
+  color: #ff1d1d;
+  font-size: 0.8rem;
+  margin-bottom: 0.5rem;
+  letter-spacing: 1px;
+}
+
+.warning-box p:last-child {
+  margin-bottom: 0;
+}
+
+/* ===== NOTE BOX ===== */
+.note-box {
+  background-color: #000000;
+  border: 1px solid #ff993b;
+  border-left: 4px solid #ff993b;
+  padding: 1.25rem;
+  margin: 1.5rem 0;
+  position: relative;
+  font-size: 0.95rem;
+}
+
+.note-box::before {
+  content: "[NOTA]";
+  display: block;
+  font-weight: bold;
+  color: #ff993b;
+  font-size: 0.8rem;
+  margin-bottom: 0.5rem;
+  letter-spacing: 1px;
+}
+
+.note-box p:last-child {
+  margin-bottom: 0;
+}
+
+/* Versão compacta para mobile */
+@media (max-width: 768px) {
+}
+
+/* Versões compactas para mobile */
+@media (max-width: 768px) {
+  .info-box,
+  .warning-box {
+    padding: 1rem;
+    margin: 1rem 0;
+  }
+
+  .info-box::before,
+  .warning-box::before {
+    font-size: 0.75rem;
+  }
+
+  .note-box {
+    padding: 1rem;
+    margin: 1rem 0;
+  }
+
+  .note-box::before {
+    font-size: 0.75rem;
+  }
+}
+
+/* ===== FIGCAPTION ESTILO HACKER ===== */
+figcaption {
+  display: block;
+  text-align: center;
+  color: #8d8d8d;
+  font-size: 0.8rem;
+  font-family: inherit;
+  font-style: italic;
+  max-width: 80%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Versão mobile */
+@media (max-width: 768px) {
+  figcaption {
+    font-size: 0.75rem;
+    max-width: 90%;
+    padding: 0.25rem;
+  }
+}
+
+/* ===== DIVISÓRIAS ===== */
+hr {
+  border: none;
+  border-top: 1px solid #333;
+  margin: 2rem 0;
+  height: 1px;
+}
+
+/* ===== CORES DE DESTAQUE ===== */
+.highlight-red {
+  color: #ff2b2b;
+}
+.highlight-yellow {
+  color: #ffd43b;
+}
+.highlight-blue {
+  color: #2baaff;
+}
+.highlight-orange {
+  color: #ff993b;
+}
+
+/* Versões com fundo (para hover ou ênfase) */
+.bg-highlight-red {
+  background-color: #ff2b2b;
+  color: #000000;
+}
+.bg-highlight-yellow {
+  background-color: #ffd43b;
+  color: #000000;
+}
+.bg-highlight-blue {
+  background-color: #2baaff;
+  color: #000000;
+}
+.bg-highlight-orange {
+  background-color: #ff993b;
+  color: #000000;
+}
+
+/* ===== FORMULÁRIOS ===== */
+input,
+textarea,
+select {
+  background-color: #000000;
+  color: #ffffff;
+  border: 1px solid #333;
+  padding: 0.5rem;
+  font-size: 1rem;
+  margin: 0.25rem 0;
+}
+
+input:focus,
+textarea:focus,
+select:focus {
+  outline: 1px solid #ffffff;
+  border-color: #ffffff;
+}
+
+button {
+  background-color: #000000;
+  color: #ffffff;
+  border: 1px solid #333;
+  padding: 0.5rem 1rem;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+button:hover {
+  background-color: #ffffff;
+  color: #000000;
+  border-color: #ffffff;
+}
+
+/* ===== RESPONSIVIDADE ===== */
+@media (max-width: 768px) {
+  body {
+    padding: 1rem;
+    font-size: 0.95rem;
+  }
+
+  h1 {
+    font-size: 2rem;
+  }
+
+  h2 {
+    font-size: 1.75rem;
+  }
+
+  h3 {
+    font-size: 1.5rem;
+  }
+
+  pre,
+  code {
+    font-size: 0.9rem;
+  }
+
+  table {
+    font-size: 0.9rem;
+  }
+
+  ul,
+  ol {
+    padding-left: 1.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  body {
+    padding: 0.75rem;
+    font-size: 0.9rem;
+  }
+
+  h1 {
+    font-size: 1.75rem;
+  }
+
+  h2 {
+    font-size: 1.5rem;
+  }
+
+  pre {
+
+    margin: 1rem 0;
+  }
+}
+
+/* ===== UTILITÁRIOS ===== */
+.text-center {
+  text-align: center;
+}
+.text-left {
+  text-align: left;
+}
+.text-right {
+  text-align: right;
+}
+
+.border {
+  border: 1px solid #333;
+}
+.border-top {
+  border-top: 1px solid #333;
+}
+.border-bottom {
+  border-bottom: 1px solid #333;
+}
+
+.mt-1 {
+  margin-top: 1rem;
+}
+.mb-1 {
+  margin-bottom: 1rem;
+}
+.mt-2 {
+  margin-top: 2rem;
+}
+.mb-2 {
+  margin-bottom: 2rem;
+}
+
+.p-1 {
+  padding: 1rem;
+}
+.p-2 {
+  padding: 2rem;
+}
+
+/* ===== ANIMAÇÕES SIMPLES ===== */
+@keyframes blink {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
+}
+
+.blink {
+  animation: blink 1s step-end infinite;
+}
+
+/* Cursor piscante (para efeitos de terminal) */
+.cursor::after {
+  content: "▋";
+  animation: blink 1s step-end infinite;
+  margin-left: 2px;
+}
+
+/* ===== SCROLLBAR PERSONALIZADO ===== */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #000000;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #333;
+  border-radius: 0;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+
+/* ===== IMPRESSÃO ===== */
+@media print {
+  body {
+    background: white;
+    color: black;
+    max-width: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  a {
+    color: black;
+    border-bottom: 1px solid black;
+  }
+
+  .no-print {
+    display: none;
+  }
+}

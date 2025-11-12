@@ -1,0 +1,5 @@
+.vscode/
+.vscode
+content/
+content/*
+converttohtml.py
