@@ -162,14 +162,19 @@ a:hover {
   grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
   gap: 15px;
   margin-top: 20px;
+  align-items: start; /* IMPORTANTE: alinha no topo */
 }
 
 .paper-item {
-  background-color: var(--paper-bg);
-  border: 1px solid var(--border-color);
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
   padding: 15px;
-  position: relative;
+  border: 1px solid var(--border-color);
   transition: all 0.3s ease;
+  background-color: var(--paper-bg);
+  height: auto; /* Altura automática */
+  min-height: 0; /* Permite que encolha */
 }
 
 .paper-item:hover {
@@ -178,26 +183,67 @@ a:hover {
   box-shadow: 0 0 10px rgba(49, 49, 49, 0.3);
 }
 
-.paper-item::before {
-  content: "> ";
-  color: #ff0000;
+.paper-image {
+  width: 100%; /* Largura total do card */
+  height: 160px; /* Altura maior para destaque */
+  overflow: hidden;
+  border: 1px solid #444;
+  background-color: #111;
+  margin-bottom: 8px;
+}
+
+.paper-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.paper-content {
+  width: 100%;
+}
+
+/* Remove o ">" do before quando tem imagem */
+.paper-item:has(.paper-image)::before {
+  display: none;
+}
+
+/* Ajusta elementos quando tem imagem */
+.paper-item:has(.paper-image) .paper-title {
+  margin-top: 0;
+  color: #fff;
   font-weight: bold;
+  margin-bottom: 8px;
+  font-size: 1.1em;
 }
 
-.paper-item-disabled {
-  opacity: 0.6;
-  cursor: not-allowed !important;
-  filter: grayscale(0.3);
+.paper-item:has(.paper-image) .paper-description {
+  color: #888;
+  font-size: 0.85em;
+  margin-bottom: 10px;
+  line-height: 1.4;
 }
 
-.paper-item-disabled:hover {
-  background-color: inherit !important;
-  border-color: inherit !important;
-  transform: none !important;
+.paper-item:has(.paper-image) .paper-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+  margin-bottom: 10px;
 }
 
-.paper-item-disabled .paper-title {
-  color: #666 !important;
+.paper-item:has(.paper-image) .paper-meta {
+  font-size: 0.85em;
+  color: #888;
+  display: flex;
+  justify-content: space-between;
+  margin-top: 10px;
+}
+
+.paper-item:has(.paper-image) .paper-status {
+  padding: 2px 6px;
+  border-radius: 3px;
+  font-size: 0.75em;
+  margin-top: 8px;
 }
 
 .paper-title {
@@ -227,6 +273,156 @@ a:hover {
   gap: 5px;
   margin-bottom: 10px;
 }
+
+
+/* CARDS DESABILITADOS - SEM CLIQUE */
+.paper-item-disabled {
+  opacity: 0.6;
+  cursor: not-allowed !important;
+  filter: grayscale(0.7);
+  background-color: rgba(10, 10, 10, 0.8);
+  border-color: #555 !important;
+  position: relative;
+}
+
+.paper-item-disabled:hover {
+  background-color: rgba(10, 10, 10, 0.8) !important;
+  border-color: #555 !important;
+  transform: none !important;
+  box-shadow: none !important;
+  z-index: 1000;
+}
+
+/* Overlay visual - usando background gradient */
+.paper-item-disabled {
+  background: 
+    linear-gradient(
+      135deg, 
+      rgba(0, 0, 0, 0.3) 0%, 
+      rgba(50, 50, 50, 0.1) 100%
+    ),
+    rgba(10, 10, 10, 0.8);
+}
+
+/* Título desabilitado */
+.paper-item-disabled .paper-title {
+  color: #999 !important;
+  text-decoration: line-through;
+}
+
+/* Descrição desabilitada */
+.paper-item-disabled .paper-description {
+  color: #666 !important;
+}
+
+/* Tags desabilitadas */
+.paper-item-disabled .tag {
+  background-color: rgba(50, 50, 50, 0.3) !important;
+  color: #777 !important;
+  border-color: #555 !important;
+}
+
+/* Meta desabilitada */
+.paper-item-disabled .paper-meta {
+  color: #666 !important;
+}
+
+/* Status especial para desabilitados */
+.paper-item-disabled .paper-status {
+  background-color: rgba(100, 100, 100, 0.3) !important;
+  color: #888 !important;
+  border-color: #666 !important;
+  position: relative;
+}
+
+/* Indicador visual "NÃO DISPONÍVEL" */
+.paper-item-disabled .paper-status::before {
+  content: "🔒 ";
+  font-size: 0.7em;
+}
+
+/* Imagem desabilitada */
+.paper-item-disabled .paper-image {
+  filter: grayscale(1) brightness(0.7);
+  border-color: #555 !important;
+}
+
+/* Remove qualquer efeito de hover na imagem */
+.paper-item-disabled .paper-image:hover {
+  filter: grayscale(1) brightness(0.7) !important;
+}
+
+
+
+/* Remove completamente a interatividade */
+.paper-item-disabled * {
+  pointer-events: none !important;
+}
+
+/* TOOLTIP CORRIGIDO - AGORA VISÍVEL COM IMAGENS */
+.paper-item-disabled::before {
+  content: "Em desenvolvimento";
+  position: absolute;
+  bottom: -35px; /* Mais espaço abaixo */
+  left: 50%;
+  transform: translateX(-50%);
+  background: #222;
+  color: #ccc;
+  padding: 5px 8px;
+  border-radius: 5px;
+  font-size: 0.8em;
+  white-space: nowrap;
+  z-index: 1000; /* Z-index alto */
+  border: 1px solid #666;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.6);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+  
+  /* Garante que fique acima de tudo */
+  display: block !important;
+  visibility: visible !important;
+}
+
+/* Seta do tooltip - CORRIGIDA */
+.paper-item-disabled::after {
+  content: "";
+  position: absolute;
+  bottom: -5px; /* Posicionada entre o card e o tooltip */
+  left: 50%;
+  transform: translateX(-50%);
+  border: 8px solid transparent;
+  border-bottom-color: #222; /* Seta apontando para CIMA */
+  z-index: 1001; /* Acima do tooltip */
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+  
+  /* Garante que fique visível */
+  display: block !important;
+  visibility: visible !important;
+}
+
+/* Mostra tooltip no hover */
+.paper-item-disabled:hover::before,
+.paper-item-disabled:hover::after {
+  opacity: 1;
+}
+
+/* Garante que o tooltip não sobreponha outros cards */
+.paper-list {
+  position: relative;
+  z-index: 1;
+  gap: 37px 10px; /* Mais espaço para o tooltip */
+}
+
+.paper-item {
+  position: relative;
+  z-index: 2;
+}
+
+
+
 
 .tag {
   background-color: rgba(75, 75, 75, 0.1);
