@@ -1,0 +1,770 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="generator" content="pandoc" />
+
+    <!-- --------------------------------------- -->
+
+    <!-- Meta Tags Básicas -->
+    <meta
+      name="description"
+      content="XMPP, federado e sem frescura"
+    />
+    <meta name="author" content="dr3zk" />
+
+    <!-- Open Graph (Facebook, Discord, WhatsApp) -->
+    <meta property="og:title" content="XMPP 🧸" />
+    <meta
+      property="og:description"
+      content="XMPP, federado e sem frescura"
+    />
+    <meta
+      property="og:image"
+      content="/images/thumbs/xmpp.png"
+    />
+    <meta
+      property="og:url"
+      content="/articles/0x01"
+    />
+    <meta property="og:type" content="article" />
+    <meta
+      property="og:site_name"
+      content="/chinese ROOM — dr3zk"
+    />
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="XMPP 🧸" />
+    <meta
+      name="twitter:description"
+      content="XMPP, federado e sem frescura"
+    />
+    <meta
+      name="twitter:image"
+      content="/images/thumbs/xmpp.png"
+    />
+    <meta
+      name="twitter:site"
+      content="@dr3zzk"
+    />
+
+    <!-- --------------------------------------- -->
+
+    <title>XMPP 🧸</title>
+    <link
+      rel="shortcut icon"
+      href="/images/gifs/chinese.gif"
+      type="image/x-icon"
+    />
+    <link rel="stylesheet" href="articleStyle.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/styles/base16/summerfruit-dark.min.css"
+    />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/highlight.min.js"></script>
+    <script>
+      hljs.highlightAll();
+    </script>
+  </head>
+  <body>
+    <center>
+      <a class="back-home" href="/index.html">&dollar;HOME</a>
+    </center>
+    <header class="page-header">
+      <h1 class="main-title">XMPP 🧸</h1>
+            <p class="subtitle">Aprenda sobre o XMPP — O Protocolo perfeito para comunicação</p>
+            <div class="meta">
+                <span class="author"><span class="highlight-red">dr3zk</span></span>
+         <span class="date">— 2025-11-14</span>
+      </div>
+      <hr class="divider" />
+    </header>
+
+    <div class="terminal-window" tabindex="0">
+      <div class="terminal-header">
+        <div class="terminal-buttons">
+          <div class="terminal-button close"></div>
+          <div class="terminal-button minimize"></div>
+          <div class="terminal-button maximize"></div>
+        </div>
+        <div class="terminal-title">dr3zk 一 定要记得清理日志</div>
+        <div class="terminal-controls">
+          <button class="flag-button" title="Sistema Operacional">🇨🇳</button>
+        </div>
+      </div>
+      <div class="terminal-content"><h1 id="overview">Overview</h1>
+<p>Este paper fornece uma visão geral do protocolo XMPP (Extensible
+Messaging and Presence Protocol), com foco em seus aspectos de
+descentralização, privacidade e anonimato.</p>
+<ul>
+<li>Abordarei como o protocolo funciona, RFCs, Extensões (XEP) e
+terminologias.</li>
+<li>Apresentarei um guia prático para a criação de uma conta e
+configuração do cliente Gajim com OMEMO e anonimização via rede
+Tor.</li>
+</ul>
+<h1 id="sumário---xmpp">Sumário - XMPP</h1>
+<details>
+<summary>
+<a href="#oque-e-xmpp">O que é XMPP</a>
+</summary>
+<ul>
+<li><a href="#rfcs-extensoes">RFCs &amp; Extensions (XEP)</a>
+<ul>
+<li><a href="#rfcs">RFCs</a></li>
+<li><a href="#xep">XEP</a></li>
+</ul></li>
+<li><a href="#xmpp-como-funciona">Como o XMPP funciona</a>
+<ul>
+<li><a href="#ideia-central-xmpp">Ideia Central</a></li>
+</ul></li>
+<li><a href="#xmpp-pontos-positivos">Pontos Positivos do XMPP (em
+questões de privacidade)</a>
+<ul>
+<li><a href="#desc-s2s">Descentralizado/S2S</a></li>
+<li><a href="#jid">Jabber ID</a></li>
+<li><a href="#no-infos">Sem Informações</a></li>
+<li><a href="#over-tor">Conexão via Tor</a></li>
+<li><a href="#xml-based">Baseado em XML</a></li>
+</ul>
+</details></li>
+</ul>
+<details>
+<summary>
+<a href="#questoes-opsec">Questões de segurança operacional (OPSEC)</a>
+</summary>
+<ul>
+<li><a href="#opsec-client">Client</a></li>
+<li><a href="#opsec-server">Server</a></li>
+</ul>
+</details>
+<details>
+<summary>
+<a href="#hands-on">Hands on (Chega de teoria)</a>
+</summary>
+<ul>
+<li><a href="#omemo-cript">OMEMO</a></li>
+<li><a href="#otr-cript">OTR</a></li>
+<li><a href="#clients-xmpp">CLIENTs</a></li>
+<li><a href="#instalando-gajim">Instalando e configurando o
+Gajim</a></li>
+<li><a href="#criando-conta">Criando a conta</a></li>
+<li><a href="#voltando-ao-gajim">Voltando ao Gajim…</a></li>
+<li><a href="#omemo-por-padrao">OMEMO POR PADRÃO</a></li>
+<li><a href="#acabou">Feito!</a></li>
+</ul>
+</details>
+<hr />
+<h1 id="oque-e-xmpp">O que é XMPP</h1>
+<p>O protocolo XMPP, inicialmente chamado de Jabber, foi iniciado em
+1999 e tinha como principal objetivo criar uma alternativa de
+comunicação de código aberto e federada/descentralizada. Com o tempo, o
+protocolo Jabber foi amadurecendo junto com a comunidade e logo foi
+padronizado, tornando-se XMPP, que é como o conhecemos hoje.</p>
+<div class="note-box">
+<p>Você pode ver essa linha do tempo aqui -&gt; <a
+href="https://xmpp.org/about/history/">XMPP History</a></p>
+</div>
+<hr />
+<h3 id="rfcs-extensoes">RFCs &amp; Extensions (XEP)</h3>
+<p>Como expliquei anteriormente, com o tempo o protocolo amadureceu e
+foi padronizado, nascendo assim as RFCs, que são documentos de
+padronização de protocolos.</p>
+<h4 id="rfcs">RFCs (documentos de padronização do protocolo)</h4>
+<p>As RFCs principais do protocolo XMPP são:</p>
+<table>
+<colgroup>
+<col style="width: 19%" />
+<col style="width: 18%" />
+<col style="width: 62%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>RFC</th>
+<th>Título</th>
+<th>Descrição</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><a href="https://xmpp.org/rfcs/#6120"><strong>RFC
+6120</strong></a></td>
+<td><strong>XMPP Core</strong></td>
+<td>Define o núcleo do protocolo, incluindo streams XML, autenticação
+SASL, estabelecimento de sessão e mecanismos de comunicação
+básicos.</td>
+</tr>
+<tr class="even">
+<td><a href="https://xmpp.org/rfcs/#6121"><strong>RFC
+6121</strong></a></td>
+<td><strong>XMPP Instant Messaging and Presence</strong></td>
+<td>Especifica as funcionalidades básicas de mensagens instantâneas e
+presença (online, offline, ocupado, etc.).</td>
+</tr>
+<tr class="odd">
+<td><a href="https://xmpp.org/rfcs/#7622"><strong>RFC
+7622</strong></a></td>
+<td><strong>XMPP Address Format</strong></td>
+<td>Padroniza o formato do JID (Jabber ID), definindo a estrutura
+<code>usuário@domínio/recurso</code>.</td>
+</tr>
+<tr class="even">
+<td><a href="https://xmpp.org/rfcs/#7590"><strong>RFC
+7590</strong></a></td>
+<td><strong>Use of TLS in XMPP</strong></td>
+<td>Especifica o uso obrigatório do TLS para criptografia de todas as
+conexões, garantindo segurança na comunicação.</td>
+</tr>
+<tr class="odd">
+<td><a href="https://xmpp.org/rfcs/#7395"><strong>RFC
+7395</strong></a></td>
+<td><strong>XMPP over WebSocket</strong></td>
+<td>Define como XMPP pode ser transportado sobre WebSockets, facilitando
+sua integração com aplicações web modernas.</td>
+</tr>
+</tbody>
+</table>
+<h4 id="xep">Extensions (XEP)</h4>
+<p>O protocolo XMPP permite a adição de extensões, que são conhecidas
+como: XEPs (<strong>XMPP Extension Protocol</strong>).</p>
+<details>
+<summary>
+Os XEP nos permitem
+</summary>
+<ol type="1">
+<li>Adicionar criptografia do lado do cliente (E2EE)</li>
+<li>Chamadas de voz e vídeo</li>
+<li>Compartilhamento de arquivos</li>
+<li>Descobrir os recursos que o servidor disponibiliza</li>
+<li>Salas em grupo (MUC)</li>
+<li>E uma infinidade de outras coisas…</li>
+</ol>
+</details>
+<p>Algumas extensões XEP bem conhecidas são:</p>
+<table>
+<colgroup>
+<col style="width: 31%" />
+<col style="width: 10%" />
+<col style="width: 58%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>XEP</th>
+<th>Nome</th>
+<th>Descrição</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><a
+href="https://xmpp.org/extensions/xep-0045.html">XEP-0045</a></td>
+<td>Multi-User Chat</td>
+<td>Salas de conversação em grupo, similares a canais de IRC.</td>
+</tr>
+<tr class="even">
+<td><a
+href="https://xmpp.org/extensions/xep-0384.html">XEP-0384</a></td>
+<td>OMEMO Encryption</td>
+<td>Criptografia de ponta-a-ponta moderna, baseada no protocolo
+Signal.</td>
+</tr>
+<tr class="odd">
+<td><a
+href="https://xmpp.org/extensions/xep-0363.html">XEP-0363</a></td>
+<td>HTTP File Upload</td>
+<td>Permite o compartilhamento de arquivos mesmo quando o destinatário
+está offline.</td>
+</tr>
+<tr class="even">
+<td><a
+href="https://xmpp.org/extensions/xep-0030.html">XEP-0030</a></td>
+<td>Service Discovery</td>
+<td>Permite que clientes descubram os recursos e extensões suportados
+por um servidor ou outro cliente.</td>
+</tr>
+<tr class="odd">
+<td><a
+href="https://xmpp.org/extensions/xep-0234.html">XEP-0234</a></td>
+<td>Jingle</td>
+<td>Framework para comunicação em tempo real, como chamadas de voz e
+vídeo.</td>
+</tr>
+</tbody>
+</table>
+<div class="note-box">
+<p>Existem diversos outros XEP, basta verificar -&gt; <a
+href="https://xmpp.org/extensions/">xmpp.org/extensions</a></p>
+</div>
+<hr />
+<h2 id="xmpp-como-funciona">Como o XMPP funciona</h2>
+<h4 id="ideia-central-xmpp">Ideia Central</h4>
+<p>O XMPP e sua ideia central:</p>
+<ul>
+<li><code>X — eXtensible:</code> Feito para se adaptar a mudanças ao
+longo do tempo.</li>
+<li><code>M — Messaging:</code> Mensagens instantâneas, rápidas e
+eficientes entre os clientes.</li>
+<li><code>P — Presence:</code> A presença de uma entidade no servidor:
+Online, Offline, Ocupado etc. Indica se você está pronto para receber
+uma mensagem ou não.</li>
+<li><code>P — Protocol:</code> É um protocolo extensível, com conjunto
+de padrões definidos, que permite a comunicação entre servidores e
+clientes.</li>
+</ul>
+<h3 id="xmpp-pontos-positivos">Pontos Positivos do XMPP (em questões de
+privacidade)</h3>
+<h4 id="desc-s2s">Descentralizado/S2S</h4>
+<details>
+<summary>
+O protocolo <em>XMPP</em> é <strong>descentralizado</strong> por padrão
+</summary>
+<ul>
+<li>Você pode rodar seu próprio servidor na sua casa, ele não depende de
+um <code>servidor central</code> único.</li>
+<li>A principal vantagem da <strong>descentralização</strong> é a
+<strong>liberdade de escolha do usuário</strong>, tendo em vista que o
+usuário pode criar seu próprio servidor (<em>se ele tiver
+experiência</em>), ou usar servidores seguros/privados (<em>o que torna
+o uso muito mais simples</em>).</li>
+</ul>
+</details>
+<ul>
+<li>Os servidores funcionam em um modo chamado
+<strong>server-to-server</strong> (<em>S2S</em>), ou seja, os servidores
+se comunicam entre si, desde que ambos estejam rodando e aceitando
+comunicações via XMPP.</li>
+</ul>
+<p><span class="code-title" data-filename="" data-language="txt">
+Estrutura Descentralizada </span></p>
+<div class="sourceCode" id="cb1"><pre
+class="sourceCode txt"><code class="sourceCode default"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>┌─────────────────────────────────────────────┐</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>│          Estrutura Descentralizada          │</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>└─────────────────────────────────────────────┘</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>     Server A                   Server B</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>  ┌─────────────┐    S2S    ┌─────────────┐</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>  │             │ ◄────────►│             │</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>  │ user1@A.org │           │ user2@B.com │</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>  │             │           │             │</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>  └─────────────┘           └─────────────┘</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>         ▲                         ▲</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>         │                         │</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>         │ C2S                     │ C2S</span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>         │                         │</span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>   ┌─────┴──────┐            ┌─────┴──────┐</span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>   │  Client 1  │            │  Client 2  │</span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>   └────────────┘            └────────────┘</span></code></pre></div>
+<div class="sourceCode" id="cb2"><pre
+class="sourceCode txt"><code class="sourceCode default"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>C2S - CLIENT TO SERVER</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>S2S - SERVER TO SERVER</span></code></pre></div>
+<ul>
+<li>Isso significa que o usuário pode criar um servidor em casa! Se esse
+servidor rodar o protocolo XMPP, ele pode se comunicar com todos os
+outros!</li>
+</ul>
+<details>
+<summary>
+Vantagens de ter seu próprio servidor
+</summary>
+<ul>
+<li>Você gerencia seu servidor (quem pode se comunicar ou o que, E2EE e
+assim por diante)</li>
+<li>Você gerencia sua privacidade (quem pode te enviar mensagem, o que
+as pessoas podem ver)</li>
+<li>Você gerencia a forma como a comunicação é feita (adicionando
+criptografia à conexão ou não, você escolhe!)</li>
+<li>Você gerencia os logs (o que o servidor vai armazenar de útil)</li>
+</ul>
+</details>
+<ul>
+<li>Mas mesmo se você não possuir um servidor, ainda existem servidores
+gratuitos e <strong>“confiáveis”</strong> que estão disponíveis
+<code>24/7</code>, e você pode se registrar criando um JabberID para se
+comunicar com outros usuários!</li>
+<li>Você também pode usar criptografia E2EE (OMEMO) para proteger suas
+mensagens, impedindo que o servidor tenha acesso ao conteúdo.</li>
+</ul>
+<h4 id="jid">Jabber ID</h4>
+<details>
+<summary>
+O protocolo XMPP usa um formato de endereçamento de entidades muito
+simples, semelhante ao e-mail.
+</summary>
+<ul>
+<li>Você pode ter uma conta no Gmail e conversar com quem tem uma conta
+no Outlook</li>
+<li>user1@meuserver.dot -&gt; user2@serverrandomico.dot2</li>
+</ul>
+</details>
+<p><span class="code-title" data-filename="" data-language="txt">
+JabberID </span></p>
+<div class="sourceCode" id="cb3"><pre
+class="sourceCode txt"><code class="sourceCode default"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>          ┌──────────────┐</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>          │JabberID (JID)│</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>          └──────────────┘</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>       usuário@domínio/mobileX</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>       ───┬─── ───┬─── ───┬───</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>    ┌─────┘       │       └────┐</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>    │             │            │</span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>    ▼             ▼            ▼</span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>┌───────┐   ┌───────────┐   ┌──────┐</span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>│Usuário│   │Domain/FQDN│   │Client│</span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>└───────┘   └───────────┘   └──────┘</span></code></pre></div>
+<details>
+<summary>
+Usuário
+</summary>
+<ul>
+<li>Seu nickname, escolhido na hora de criar sua conta em um servidor
+Jabber/XMPP</li>
+</ul>
+</details>
+<details>
+<summary>
+Domain
+</summary>
+<ul>
+<li>NameSystem do servidor, usado para identificação do servidor do
+usuário/entidade</li>
+</ul>
+</details>
+<details>
+<summary>
+Client
+</summary>
+<ul>
+<li>Usado para especificar o cliente/dispositivo que o usuário está
+utilizando (<code>/mobile2 /laptopHome /gajim.DeskTOP12345</code>)</li>
+<li>Um usuário pode estar conectado simultaneamente em uma mesma conta,
+porém em diversos dispositivos diferentes, e é essa parte que identifica
+em qual dispositivo ele está conectado.</li>
+</ul>
+</details>
+<h4 id="no-infos">Sem Informações</h4>
+<ul>
+<li>Você não precisa dar informações pessoais (<em>e-mails, número de
+telefone, ou coisas do tipo</em>) ao criar seu JabberID. Basta ter um
+usuário e uma senha!</li>
+<li>A coleta de informações varia de servidor para servidor. Pela
+essência do protocolo XMPP, a grande maioria dos servidores evita
+armazenar informações (IPs, mensagens etc.) por muito tempo! Basta ver
+as especificações de privacidade do servidor em que você irá se
+registrar para verificar essas informações.</li>
+</ul>
+<div class="warning-box">
+<p><strong>Lembre-se:</strong> tudo depende das políticas do servidor
+XMPP que você irá utilizar.</p>
+</div>
+<h4 id="over-tor">Conexão via Tor</h4>
+<ul>
+<li>Atualmente a maioria dos clientes suporta conexões feitas via
+Tor</li>
+<li>Isso anonimiza seu dispositivo e sua conexão, ou seja, o servidor
+não terá acesso ao seu endereço IP real.</li>
+<li>Isso acaba impedindo os servidores de obterem informações laterais
+que possam chegar até você (localização baseada no IP, ou identidade
+real baseada em footprinting).</li>
+</ul>
+<h4 id="xml-based">Baseado em XML</h4>
+<ul>
+<li>O protocolo é totalmente baseado em XML, o que permite extensões
+personalizadas.</li>
+<li>Isso é bom para novas features.</li>
+<li>Exemplo disso é o XEP!</li>
+</ul>
+<details>
+<summary>
+Mitos a respeito do protocolo XMPP
+</summary>
+<p>Recomendo que você dê uma olhada sobre os <a
+href="https://xmpp.org/about/myths/">Mitos a respeito do protocolo
+XMPP</a></p>
+</details>
+<hr />
+<h1 id="questoes-opsec">Questões de segurança operacional (OPSEC)</h1>
+<p>O protocolo XMPP, por ser descentralizado e Open Source, é muito
+acolhedor para aqueles usuários que gostam de segurança operacional.</p>
+<blockquote>
+<p>Diferente de protocolos proprietários, cujo usuário não pode fazer
+configurações adequadas e deve confiar cegamente na instituição
+centralizada.</p>
+</blockquote>
+<p>No XMPP é possível configurar seu próprio ambiente de comunicação,
+com boas práticas você pode criar um ambiente protegido e privado.</p>
+<h3 id="opsec-client">Client</h3>
+<ul>
+<li>Escolha um bom cliente, que suporte a maioria das extensões e
+criptografias, e que também permita conexões via PROXY/SOCKS5</li>
+<li>Dependendo do cliente que você utilizar, você pode fazer muitas
+configurações</li>
+<li>Com XMPP o usuário poderá implementar criptografia end-to-end, o que
+significa que você criptografa a mensagem no cliente, e depois envia ao
+servidor, dessa forma o servidor não poderá ver sua mensagem
+criptografada, somente o usuário destinatário.</li>
+</ul>
+<h3 id="opsec-server">Server</h3>
+<ul>
+<li>Existem muitos servidores públicos que fornecem boas práticas de
+segurança atualmente.</li>
+<li>E mesmo que não forneça, você pode implementar criptografia nas suas
+mensagens, e o servidor não terá acesso ao conteúdo delas!</li>
+<li>Isso já deixa muitos outros mensageiros no chinelo</li>
+</ul>
+<h1 id="hands-on">Hands on (Chega de teoria)</h1>
+<p>Vamos á prática! abordarei os dois protocolos extensivos de
+criptografia mais utilizados com XMPP. Fica a seu critério qual você irá
+utilizar.</p>
+<h2 id="omemo-cript">OMEMO</h2>
+<details>
+<summary>
+Recomendado para uso diário, conversas com amigos, familiares e etc.
+(conversas comuns, sem conteúdo sensivel)
+</summary>
+<ul>
+<li>É mais versátil e atual</li>
+<li>Compátivel com + de 1 dispositivo</li>
+<li>Possui negação fraca</li>
+<li>Suporta conversas em Grupo (MUC)</li>
+<li>É assincrono, o que permite receber mensagens offline</li>
+</ul>
+</details>
+<h2 id="otr-cript">OTR</h2>
+<details>
+<summary>
+Recomendado para conversas sensiveis (denuncias, crimes e etc.)
+</summary>
+<ul>
+<li>OTR é mais antigo, porém possui uma negação muito forte.</li>
+<li>Ambos clientes devem estar online para se comunicarem</li>
+<li>A cada nova conversa, uma nova chave criptografica! (Isso é bom
+pois, as chaves antigas não são atreladas a você)</li>
+<li>Se um dia te julgarem em um tribunal, é possivel negar!</li>
+</ul>
+</details>
+<div class="info-box">
+<p>Ambos são seguros, mas são utilizados para própositos diferentes!</p>
+</div>
+<h2 id="clients-xmpp">CLIENTs</h2>
+<p>Existe uma lista enorme de clients que podem ser utilizados, e você
+pode encontrar aqui: <a
+href="https://xmpp.org/software/?category=clients">XMPP CLIENTS</a></p>
+<details>
+<summary>
+Já utilizei esses clients, nessas plataformas
+</summary>
+<ul>
+<li>Gajim (<code>Linux/Windows</code>) -&gt; Suporte a
+<code>OMEMO</code></li>
+<li>Pidgin (<code>Linux/Windows</code>) -&gt; Suporte a
+<code>OTR</code></li>
+<li>Conversations (<code>Android</code>) -&gt; Suporte a
+<code>OMEMO</code></li>
+</ul>
+</details>
+<h2 id="instalando-gajim">Instalando e configurando o Gajim</h2>
+<div class="warning-box">
+<p>Como eu utilizo o linux, irei guiar esse tutorial em uma máquina
+linux!</p>
+</div>
+<h3 id="criando-conta">Criando a conta</h3>
+<p>Primeiro você precisa de um jabberID, então procure um servidor
+confiável e crie sua conta</p>
+<blockquote>
+<p><a href="https://list.jabber.at/">Lista de Servidores
+Jabber/XMPP</a></p>
+</blockquote>
+<ul>
+<li>Essa parte é simples, basta escolher um servidor e criar sua conta
+lá. (não irei desenvolver essa parte)</li>
+<li>Salve sua senha em um lugar seguro. (KeePassXC)</li>
+<li>Servidores XMPP em sua grande maioria não permitem a troca de senha,
+e aqueles que permitem precisam de alguma informação pra confirmar sua
+identidade (e-mail ou coisa do tipo)</li>
+</ul>
+<hr />
+<h4 id="voltando-ao-gajim">Voltando ao Gajim…</h4>
+<p>Agora que você possui um jabberID em um Servidor, vamos logar usando
+o Gajim!</p>
+<p>Antes de logar na sua conta Jabber, a primeira coisa que iremos fazer
+é ir nas configurações do Gajim, e configurar umas coisas básicas!</p>
+<hr />
+<ol type="1">
+<li>Clique no icone de configuração na parte inferior esquerda.</li>
+</ol>
+<figure>
+<img src="/images/p/0x01-xmpp/1.png"
+alt="Entre nas configurações do Gajim" />
+<figcaption aria-hidden="true">Entre nas configurações do
+Gajim</figcaption>
+</figure>
+<p>Antes de seguir os próximos passos você irá precisar do serviço TOR
+rodando na sua máquina</p>
+<ul>
+<li>Instale o TOR</li>
+</ul>
+<pre><code>sudo apt install tor</code></pre>
+<ul>
+<li>Habilite e inicie</li>
+</ul>
+<pre><code>sudo systemctl enable tor
+sudo systemctl start tor</code></pre>
+<ul>
+<li>Saida do terminal esperada</li>
+</ul>
+<pre><code>Synchronizing state of tor.service with SysV service script with /lib/systemd/systemd-sysv-install.
+Executing: /lib/systemd/systemd-sysv-install enable tor</code></pre>
+<ul>
+<li>Verifique se está rodando</li>
+</ul>
+<figure>
+<img src="/images/p/0x01-xmpp/tor.png"
+alt="Saida esperada se o TOR estiver rodando" />
+<figcaption aria-hidden="true">Saida esperada se o TOR estiver
+rodando</figcaption>
+</figure>
+<ul>
+<li>Tudo certo até aqui…</li>
+</ul>
+<hr />
+<ol start="2" type="1">
+<li>Agora vá em Advanced e coloque o Global Proxy como Tor</li>
+</ol>
+<figure>
+<img src="/images/p/0x01-xmpp/2.png"
+alt="Colocando o TOR como conexão global do Gajim" />
+<figcaption aria-hidden="true">Colocando o TOR como conexão global do
+Gajim</figcaption>
+</figure>
+<ul>
+<li>Feche o Gajim e abra novamente</li>
+</ul>
+<ol start="3" type="1">
+<li>Vamos logar na nossa conta agora</li>
+</ol>
+<ul>
+<li>Configuramos o Global proxy para fazer todas as conexões via TOR,
+mas….</li>
+<li>Para maior anonimização no lado do servidor, recomendo fazer essa
+etapa com uma VPN ativa, caso o Global proxy não funcione na primeira
+conexão!</li>
+<li>Isso vai preservar seu IP no Servidor!</li>
+<li>Use riseup VPN!</li>
+</ul>
+<pre><code>sudo apt install riseup-vpn</code></pre>
+<ul>
+<li>Ative a VPN</li>
+<li>Agora logue na sua conta</li>
+</ul>
+<figure>
+<img src="/images/p/0x01-xmpp/3.png" alt="Logando na conta Jabber" />
+<figcaption aria-hidden="true">Logando na conta Jabber</figcaption>
+</figure>
+<div class="note-box">
+<p>Você pode selecionar <code>Adavanced Settings</code> e selecionar o
+TOR para conexão (já configuramos isso antes, mas se você é paranoico
+assim como eu, faça!), fica ao seu critério</p>
+</div>
+<hr />
+<ol start="4" type="1">
+<li>Agora é hora de configurar sua conta Jabber no Client Gajim!</li>
+</ol>
+<ul>
+<li>Volte as configurações</li>
+</ul>
+<figure>
+<img src="/images/p/0x01-xmpp/1.png" alt="Volte as configurações" />
+<figcaption aria-hidden="true">Volte as configurações</figcaption>
+</figure>
+<ul>
+<li>Selecione sua conta Jabber</li>
+</ul>
+<figure>
+<img src="/images/p/0x01-xmpp/4-conta.png"
+alt="Selecione su conta Jabber" />
+<figcaption aria-hidden="true">Selecione su conta Jabber</figcaption>
+</figure>
+<ul>
+<li>Agora a gente vai configurar o Proxy da conta especifica</li>
+<li>Clique em Connection</li>
+</ul>
+<figure>
+<img src="/images/p/0x01-xmpp/connection.png"
+alt="Selecione o TOR como proxy default" />
+<figcaption aria-hidden="true">Selecione o TOR como proxy
+default</figcaption>
+</figure>
+<ul>
+<li>Selecione TOR como padrão
+<ul>
+<li>Assim a conta jabber que você configurou, irá se conectar atráves do
+TOR, sempre! (faça o teste desligando o TOR e ligando, veja se a conexão
+do gajim caiu)</li>
+</ul></li>
+<li>Verifique também se você está usando conexão sem criptografia</li>
+</ul>
+<figure>
+<img src="/images/p/0x01-xmpp/semcript.png"
+alt="Desabilite a conexão sem criptografia" />
+<figcaption aria-hidden="true">Desabilite a conexão sem
+criptografia</figcaption>
+</figure>
+<ul>
+<li>Deixe as opções dessa forma, assim toda vez que uma conexão sem
+criptografia for feita, você irá precisar verificar e confirmar!</li>
+</ul>
+<blockquote>
+<p>Pronto!</p>
+</blockquote>
+<ul>
+<li>Agora vamos colocar criptografia OMEMO por padrão!</li>
+</ul>
+<h3 id="omemo-por-padrao">OMEMO POR PADRÃO</h3>
+<ul>
+<li>Essa etapa é muito simples, basta ir em Privacy e colocar a
+criptografia padrão como OMEMO</li>
+</ul>
+<figure>
+<img src="/images/p/0x01-xmpp/omemo.png" alt="Selecione o OMEMO" />
+<figcaption aria-hidden="true">Selecione o OMEMO</figcaption>
+</figure>
+<hr />
+<h2 id="acabou">Feito!</h2>
+<ul>
+<li>Agora você pode conversar de forma segura</li>
+<li>Agora você pode adicionar pessoas novas, e apresentar o XMPP as
+pessoas, livrando elas das instituições centralizadas!!!</li>
+<li>Agora você pode me adicionar: <code>dr3zk@linux.monster</code></li>
+</ul>
+<hr />
+<p>Bom o paper acabou, se você leu até aqui obrigado por ter tirado um
+tempo para visitar essa joça! Se encontrou algum erro técnico ou de
+português, sinta-se à vontade para me adicionar no XMPP e me enviar.</p>
+<blockquote>
+<p>Lembre-se de colocar as luvas nos pés dos MACAC0S!
+🇨🇳🇨🇳🇨🇳🇨🇳🇨🇳🇨🇳🇨🇳🇨🇳🇨🇳</p>
+</blockquote>
+<pre><code>⣠⣤⣄⣀⣤⡤⠤⣤⢄⠀⣀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+⠀⢸⣿⣿⣷⣮⡓⢦⡀⠀⠀⠉⠉⠓⠲⠤⢤⣀⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+⢴⣾⣿⣿⣿⣿⣿⣦⣙⠂⠀⠤⡀⠀⠀⠀⠀⠀⠈⠑⠒⠤⣀⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+⠐⢻⣿⣿⣿⢿⣿⣿⣿⠷⠀⠀⠀⠀⠀⠀⠀⠀⠀⣀⣤⡀⢙⡯⡓⢤⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+⢸⣿⢻⣽⣿⣿⣿⠷⠛⠁⠀⠀⠀⠐⠀⠀⠀⠐⠛⠉⣽⣯⡽⠁⠘⢦⣱⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣠⣤⣄⣀⣠⠴⢒⣚⣹⣟⣛⣲⢶⣤⣀⠀⠀⠀
+⡘⣻⣷⣽⢿⠏⠙⠃⠀⠀⠀⠀⠀⠀⠀⠀⠀⠐⠺⢾⣿⢿⣧⣆⠐⠆⣙⣻⢆⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣿⢸⠘⣿⣷⣿⣽⣿⣿⣟⣟⢿⣾⣿⣿⣯⣧⠀
+⣤⣸⣿⣿⠂⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⠻⢭⣭⣭⣿⣿⣗⣻⣿⣿⡦⣀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣀⣿⣽⡀⠸⣿⣿⣿⣿⣿⣿⣾⣿⣿⣿⡛⣿⡻⣧
+⢹⣯⡿⠏⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢠⣤⣶⣾⣿⣿⡯⣛⣷⣯⣿⡺⣿⣮⡳⣄⠀⠀⠀⠀⠀⠀⠀⠀⢀⣴⣾⡿⣿⣿⡟⠁⠀⣿⣿⣿⣿⣿⣿⡿⣿⣴⣿⣯⣹⡟⣿
+⠘⠻⠇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠺⠛⢉⣴⣿⣯⣾⢟⡲⢿⣛⢿⡹⣷⣛⣋⠑⡄⠀⠀⠀⠀⡠⠚⠋⠉⠫⢯⣿⣿⣷⡄⢠⣿⣿⣿⣿⣿⡿⣇⣻⣿⣿⣷⢿⣇⢨
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣰⡿⠋⢧⡟⢻⣷⣝⡲⢌⣙⠣⡘⣿⣿⣷⠜⠀⠀⠀⢰⡁⠀⠀⠀⠀⠀⢻⣿⣿⣆⣿⣿⣿⣿⣿⡿⢴⣿⣿⣷⡿⡿⣾⣏⠀
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠁⠀⠀⢏⣠⣿⣿⣿⣿⣶⣮⣍⣒⢼⡏⠁⠀⠀⠀⠀⠀⠙⢑⡒⠒⠒⠋⢡⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣛⣷⣿⠋⢏⠀
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣰⣿⣿⣿⣿⣿⡇⢸⡟⣿⡿⠿⠀⠀⠀⠀⠀⠀⠀⠀⠘⠱⢀⣠⢨⣬⣿⣿⣋⠛⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⢧⡈⠀
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⡾⠇⠀⠀⠀⠀⢀⣾⣿⣿⡿⠛⠉⠉⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⠓⡿⠛⢻⡿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⢿⣿⣾⣷⡁
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⡔⣠⣿⣯⢻⣿⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⡼⡽⢰⣸⣿⣾⣿⣿⣿⣿⢿⣿⢿⣿⣿⣿⣿⠟⠁⠀⠙⣿⣿⣷
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣿⣿⣿⣸⣿⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣜⡾⠵⣿⠟⣿⣷⣿⣿⢹⣿⠀⣳⣿⣿⣿⣿⡟⣀⠆⠀⡀⣄⠹⣿
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣒⢤⡀⠀⠀⣿⣿⣿⣿⣿⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣼⡾⡿⢋⣵⣾⡏⢹⣯⣟⣽⡏⠀⠈⣿⣿⠟⣀⣼⠋⠀⢠⣽⣿⣷⣮
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠙⡝⡄⠀⠸⣿⣿⣇⣛⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⡞⢸⣷⣿⣿⣿⡟⢰⣿⣿⣿⠏⠀⠀⠀⣟⣿⣾⣿⠇⠀⠀⣾⣾⣷⣿⣿
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠘⡄⠀⠈⠛⠿⠿⠃⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢸⡇⠘⣿⣿⣿⡿⠀⠀⠉⠉⠀⠀⠀⠀⢠⣿⣿⢻⡟⠀⡆⣿⣿⣿⣿⣿⣿
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠙⠤⠤⢖⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢸⡇⠀⢻⣿⣿⣧⠀⠀⠀⠀⠀⠀⠀⢀⣿⣿⠃⣾⣧⠀⣿⣿⣿⣿⣿⣿⣿</code></pre></div>
+    </div>
+  </body>
+</html>

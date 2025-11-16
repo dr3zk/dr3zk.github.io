@@ -43,11 +43,11 @@ body {
 }
 
 .page-header {
- text-align: center;
+  text-align: center;
 }
 
 .page-header p {
- text-align: center;
+  text-align: center;
 }
 
 /* ===== JANELA TERMINAL MODERNA ===== */
@@ -508,7 +508,7 @@ img.no-border {
 
 /* Imagens pequenas não esticam */
 img:not([width]):not([style*="width"]) {
-  max-width: min(100%, 800px);
+  max-width: min(100%, 1280px);
 }
 
 /* Imagens com largura definida mantém proporção */
@@ -554,7 +554,7 @@ details[open] {
 }
 
 .info-box::before {
-  content: "[INFO]";
+  content: "> [INFO]";
   display: block;
   font-weight: bold;
   color: #2baaff;
@@ -790,7 +790,6 @@ button:hover {
   }
 
   pre {
-
     margin: 1rem 0;
   }
 }
